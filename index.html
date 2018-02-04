@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="sp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ball Bounce</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+
+    <!-- Phaser Jquery Toast-->
+    <script src="phaser.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="toast/jquery.toast.js"></script>
+
+    <!-- Scripts y Estilos Propios -->
+    <script src="JavaScriptFormulario.js"></script>
+    <script src="javaScriptJuego.js"></script>
+    <link rel="stylesheet" href="toast/jquery.toast.css">
+    <link rel="stylesheet" href="estilos/css.css">
+
+</head>
+
+<body>
+    <h1 id="cabecera"> Ball Bounce </h1>
+    <div id="bloquePadre">
+
+		<div id="formulario">
+			<h1>Regístrate:</h1>
+			<form>
+				<label>Introduce aqui tu nombre de usuario</label>
+				<input type="text" id="TBnombreUsuario" placeholder="Ejemplo: Lokillo25" required="required"><br>
+				<select id="dificultad">
+					<option value="1">Facil</option>
+					<option value="2">Medio</option>
+					<option value="3">Dificil</option>
+				</select><br>
+				<input type="button" id="TBguardar" value="Jugar" >
+			</form>
+		</div>
+       
+		<div id="tablero"></div>
+
+		<div id="estadistica">
+			<h1>Marcadores</h1>
+			<ul id="CabEstaditica">
+				<li>Usuario</li>
+				<li>Puntuación</li>
+			</ul>		
+		</div>
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,53 @@
+//recojo los datos del formulario y elimino el bloque para que aparezca el juego;
+var boton = document.getElementById("TBguardar");
+boton.addEventListener('click', guardar, false);
+
+//quito los bloques inutiles
+document.getElementById("estadistica").style.display = "none";
+document.getElementById("tablero").style.display = "none";
+
+function guardar() {
+	var nombreUsuario = document.getElementById("TBnombreUsuario").value;
+
+	if (nombreUsuario.length != " ") {
+
+		if (localStorage.getItem("jugador") == null) {
+			localStorage.setItem("jugador", nombreUsuario + ";0/");
+		} else {
+			localStorage.setItem("jugador", localStorage.getItem("jugador") + nombreUsuario + ";0/");
+		}
+		//inicio juego
+		juego.state.add('principal', estadoPrincipal);
+		juego.state.start('principal');
+
+		document.getElementById("tablero").style.display = "block";
+		document.getElementById("formulario").style.display = "none";
+	} else {
+		alert("Rellena el campo de tu nombre para poder mostrar tu puntuacion");
+	}
+}
+
+/* variables del juego*/
+
+var juego = new Phaser.Game(400, 500, Phaser.AUTO, 'tablero', {
+	
+	preload: preload,
+	create: create,
+	update: update
+});
+
+
+function preload() {
+	
+	juego.load.image("pelota","img/pelota.png");
+	juego.load.image("bloque","img/bloque.png")
+
+}
+
+function create() {
+	juego.add.sprite(0,0,"pelota")
+}
+
+function update() {
+
+}

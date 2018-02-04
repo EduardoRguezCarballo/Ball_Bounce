@@ -1,0 +1,214 @@
+/*SCROLL*/
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff8000;
+    border: 4px solid #000000;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff8000;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #ff8000;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+    border: 4px solid #ff8000;
+    border-radius: 26px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-track:active {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+
+/* estilos generales */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-size: 15px;
+}
+
+#formulario,
+#bloquePadre,
+#estadistica {
+    width: 400px;
+    height: 500px;
+    margin: auto;
+    background-color: rgba(34,40,49,0.75);
+}
+
+/* estilos propios */
+
+body {
+    background-image: url(/img/fondobody.gif);
+    background-color: #084751;
+}
+
+#cabecera {
+    /*estilos al bloque*/
+    height: auto;
+    animation: 4s aparece;
+    margin-bottom: 12px;
+    background-color: rgba(34,40,49,0.75);   border: 3px solid #33C2D9;
+    outline: 5px solid rgba(34,40,49,0.75);
+}
+
+#cabecera,
+#formulario h1,
+#estadistica h1 {
+    /*texto*/
+    text-align: center;
+    font-family: 'Bungee', cursive;
+    font-size: 2.6rem;
+    color: #F96D00;
+    letter-spacing: 10px;
+    -webkit-text-stroke: 1px #393E46;
+    text-shadow: 3px 3px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+#bloquePadre {
+    border: 3px solid #33C2D9;
+    outline: 5px solid rgba(2, 14, 16, 0.8);
+    overflow: hidden;
+}
+
+#formulario {
+    font-family: 'Sofia', cursive;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+#formulario h1,
+#estadistica h1 {
+    letter-spacing: 1px;
+    color: #F96D00;
+}
+
+#formulario form {
+    text-align: center;
+}
+
+#formulario form label {
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #F96D00;
+    font-weight: bold;
+}
+
+#TBnombreUsuario {
+    width: 50%;
+    margin: 5px auto;
+    border-radius: 20px;
+    padding: 5px;
+    border: 2px solid #F96D00;
+}
+
+#TBguardar, .boton , #dificultad{
+    width: 50%;
+    margin: 5px auto;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: #222831;
+    color: #F96D00;
+    font-weight: bold;
+    border: 2px solid #F96D00;
+}
+
+#TBguardar:hover,
+#TBnombreUsuario:hover {
+    transition: .3s all;
+    box-shadow: 0px 0px 20px 5px #F96D00;
+    border-color: #222831;
+}
+
+/* MARCADORES */
+
+#estadistica {
+    overflow-x: hidden;
+    scrollbar-face-color: #6685CA;
+    scrollbar-highlight-color: #6685CA;
+    scrollbar-shadow-color: #6685CA;
+    scrollbar-3dlight-color: #FFFFFF;
+    scrollbar-arrow-color: #FFFFFF;
+    scrollbar-track-color: #E5E5E5;
+    scrollbar-drakshadow-color: #000000;
+}
+
+#bloquePadre {
+    border-right: none;
+    border-left: none;
+}
+
+.usuario,
+#CabEstaditica {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    list-style: none;
+    border-bottom: 2px solid black;
+}
+
+.usuario li,
+#CabEstaditica {
+    padding: 5px;
+    color: white;
+}
+
+#CabEstaditica {
+    background-color: lightseagreen;
+    color: black;
+}
+
+/*animaciones*/
+
+@keyframes aparece {
+    from {
+        margin-left: -150%;
+    }
+}
+
+.jq-toast-single {
+    border: 3px solid #F96D00;
+    box-shadow: 0px 0px 20px black;
+}
+
+.jq-toast-single > h2 {
+    color: #F96D00;
+}
+
+.boton{
+	display: block;
+	margin:10px auto;
+}
+
+#dificultad {
+	text-align: center;
+}

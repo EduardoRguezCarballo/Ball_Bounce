@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sp">
+<head>
+    <meta charset="UTF-8">
+    <title>Ball Bounce</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+    <link rel="stylesheet" href="estilos/css.css">   
+    <script src="phaser.min.js"></script>    
+</head>
+<body>
+  <h1 id="cabecera"> Ball Bounce </h1>
+   <div id="bloquePadre">
+       
+        <div id="formulario">
+           <h1>Regístrate:</h1>
+           <form>
+              <label>Introduce aqui tu nombre de usuario</label>
+               <input type="text" id="TBnombreUsuario" placeholder="Ejemplo: Lokillo25" required><br>
+               <input type="button" id="TBguardar" value="Jugar">
+           </form>
+        </div>
+        
+        <div id="tablero"/>
+        
+        <div id="estadistica">
+           	<h1>Marcadores</h1>
+			<ul id="CabEstaditica">
+				<li>Usuario</li>
+				<li>Puntuación</li>
+			</ul>
+      		
+       		<ul class="usuario">
+				<li>Eduardo</li>
+				<li>200 puntos</li>
+			</ul>
+        </div>
+   </div>
+</body>
+<script src="javaScript.js"></script>
+</html>

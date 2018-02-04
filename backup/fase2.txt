@@ -1,0 +1,204 @@
+var juego;
+
+$(document).ready(function () {
+    $("#estadistica")[0].style.display = "none";
+    $("#tablero")[0].style.display = "none";
+    $('#TBguardar').on('click', guardar);
+});
+
+function guardar() {
+    var nombreUsuario = document.getElementById("TBnombreUsuario").value;
+
+    if (nombreUsuario.length != " ") {
+
+        if (localStorage.getItem("jugador") == null) {
+            localStorage.setItem("jugador", nombreUsuario + ";0/");
+        } else {
+            localStorage.setItem("jugador", localStorage.getItem("jugador") + nombreUsuario + ";0/");
+        }
+        document.getElementById("tablero").style.display = "block";
+        document.getElementById("formulario").style.display = "none";
+    } else {
+        mensajes('Cuidado!', 'Necesitamos un nombre para registrar tus datos')
+    }
+}
+
+//funcion que devuelve un mensaje de toast
+function mensajes(mensaje, leyenda) {
+
+    $.toast({
+        heading: mensaje,
+        text: leyenda,
+        loader: true,
+        loaderBg: 'red'
+    });
+}
+
+//incio juego
+juego = new Phaser.Game(410, 500, Phaser.AUTO, 'tablero', {
+    preload: preload,
+    create: create,
+    update: update
+});
+
+/* Variables JUEGO*/
+var pelotas;
+var suelos;
+var click = true;
+var posicionesX = [35, 101, 167, 233, 299, 365];
+var posicionesY = [-331, -265, -199, -133, -67, -1];
+var posicionActual = 0;
+var puntos = 0;
+var caca = false;
+var dar = 0;
+var bloques;
+var tablero = [
+    [, , , , , ],
+    [, , , , , ],
+    [, , , , , ],
+    [, , , , , ],
+    [, , , , , ],
+    [, , , , , ]
+];
+
+var Xpelota = 205;
+
+function preload() {
+    juego.load.image("fondo", "img/fondo.jpg");
+    juego.load.image("pelota", "img/pelota.png");
+    juego.load.image("bloque", "img/bloque2.png");
+    juego.load.image("base", "img/base.png");
+}
+
+function create() {
+    juego.physics.startSystem(Phaser.Physics.ARCADE);
+    juego.enableBody = true;
+    fondo = juego.add.sprite(0, 0, "fondo");
+
+    suelos = juego.add.group();
+    suelos.enableBody = true;
+    
+    suelo = suelos.create(0, 490, "base");
+    suelo.width = 410;
+    suelo.height = 70;
+
+    bloques = juego.add.group();
+    bloques.enableBody = true;
+    crearbloque();
+    bloques.y = posicionesY[posicionActual];
+
+    pelotas = juego.add.group();
+    pelotas.enableBody = true;
+
+    pelota = pelotas.create(205, 450, "pelota")
+    pelota.body.collideWorldBounds = true;
+    pelota.anchor.setTo(0.5);
+    pelota.body.bounce.set(1);
+    pelota.width = 35;
+    pelota.height = 35;
+
+    juego.physics.arcade.enable(bloques);
+}
+
+function update() {
+
+    juego.physics.arcade.collide(pelotas, bloques, function (pelotas, bloques) {
+        bloques.kill();
+        puntos++;
+    });
+    
+    juego.physics.arcade.overlap(pelotas, suelo, function (pelotas, suelo) {
+        
+        //para la pelota para simular un nuevo tiro
+        pelota.y = 450;
+        pelota.x = Xpelota;
+        pelota.body.velocity.y=0;
+        pelota.body.velocity.x=0;
+        bloques.y = posicionesY[posicionActual++];
+        click = true;
+    });
+
+    if (juego.input.mousePointer.isDown && click == true) {
+        //mueve la pelota a donde haga click
+        juego.physics.arcade.moveToPointer(pelota, 700);
+        click = false;
+    }
+    
+    Xpelota = pelota.x;
+}
+
+function crearbloque() {
+
+    for (var f = 0; f < 6; f++) {
+        var NumBloques = Math.round(Math.random() * (6 - 1) + 3);
+
+        for (var c = 0; c < NumBloques; c++) {
+
+            var PosicionRadom = Math.round(Math.random() * (6 - 1) + 1);
+
+            bloqueActual = bloques.create(posicionesX[PosicionRadom], posicionesX[f], "bloque")
+            bloqueActual.enableBody = true;
+            bloqueActual.anchor.setTo(0.5);
+            bloqueActual.body.immovable = true;
+        }
+    }
+}
+
+
+/*
+    parar la velocidad
+    ship.body.setZeroVelocity();
+
+    pelotas = juego.add.group();
+	pelotas.enableBody = true;
+	pelota = pelotas.create(180, 450, "pelota")
+	pelota.scale.setTo(0.05, 0.05)
+	pelota.body.collideWorldBounds = true;
+	pelota.body.bounce = 50;
+    pelotas.physicsBodyType = Phaser.Physics.BOX2D;
+    juego.physics.startSystem(pelotas);
+
+	MULTIPLICADOR DE VELOCIDAD DE REBOTE
+	pelota.body.bounce.y = 10;
+
+	http://joelwalls.com/2015/07/tutorial-programacion-de-juegos-con-phaser-parte-1/?i=1
+	
+	gravedad 	
+	bloqueActual.body.gravity.x = 1000;
+	bloqueActual.body.gravity.y = 1000;
+	
+	function creoMarco() {
+	marcos = juego.add.group();
+	marcos.enableBody = true;
+	
+	marco = marcos.create(-29, 0, "bloque")
+	marco.height = 500;
+	marco.width = 30;
+	marco.body.immovable = true;
+
+	marco2 = marcos.create(408, 0, "bloque")
+	marco2.height = 500;
+	marco2.width = 30;
+	marco2.body.immovable = true;
+
+	marco3 = marcos.create(0, -28, "bloque")
+	marco3.height = 30;
+	marco3.width = 410;
+	marco3.body.immovable = true;		
+	
+	//juego.physics.arcade.collide(bloques, pelotas);
+}
+
+    centrar el eje en el medio
+    elemento.anchor.setTo(0.5);
+    
+    game.add.text(5,  5, 'Use arrow keys to move.', { fill: '#ffffff', font: '14pt Arial' });
+    game.add.text(5, 25, 'Rectangle shapes are set to ignore world boundaries.', { fill: '#ffffff', font: '14pt Arial' });    
+    
+	for (var i = 0; i < NumeroDeBloques; i++) {
+		var PosicionRadom = Math.round(Math.random() * (7 - 1) + 1);
+
+		bloqueActual = bloques.create(posicionesX[PosicionRadom], posicion, "bloque")
+		bloqueActual.enableBody = true;
+	}
+*/
